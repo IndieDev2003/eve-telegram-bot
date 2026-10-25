@@ -1,0 +1,7 @@
+allowBuilds:
+  core-js-pure: true
+  esbuild: true
+
+ignoredOptionalDependencies:
+  - "@mongodb-js/zstd"
+  - "node-liblzma"

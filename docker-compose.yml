@@ -1,0 +1,24 @@
+services:
+  eve-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: eve-agent
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      # Persistent storage for Eve workflow runs & session states
+      - eve_workflow_data:/app/.eve/.workflow-data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+volumes:
+  eve_workflow_data:
+    driver: local
